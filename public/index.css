@@ -1,3 +1,9 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
 html, body {
     height: 100%;
 }
@@ -11,7 +17,7 @@ body {
     width: 300px;
     padding: 0;
 }
-.counterContainer {
+.counter-container {
     height: 300px;
     background: #FFFFFF;
     box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.25);
@@ -25,33 +31,51 @@ body {
     color: #000000;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.btnContainer {
-    padding: 34px 13px 0;
+.btn {
+    padding: 0 0;
 }
-.btnContainer > * {
+.btn-container button {
     width: 65px;
     height: 65px;
     border-radius: 4px;
 }
-.btnContainer .btn-inc {
+.btn-counter {
+    padding: 34px 13px 0;
+}
+.btn-load {
+    padding: 34px 65px 0;
+}
+.btn-inc {
     background: #089C20;
 }
 .btn-inc::after {
     content: url('img/Plus.svg');
 }
-.btnContainer .btn-dec {
+.btn-dec {
     background: #E7AA10;
 }
 .btn-dec::after {
     content: url('img/Minus.svg');
 }
-.btnContainer .btn-rst {
+.btn-rst {
     background: #CF1C1C;;
 }
 .btn-rst::after {
     content: url('img/Reset.svg');
 }
-.btn-inc::after, .btn-dec::after, .btn-rst::after {
-    -webkit-filter: drop-shadow( 5px 5px 5px rgba(0, 0, 0, .25));
-    filter: drop-shadow( 5px 5px 5px rgba(0, 0, 0, .25));
+.btn-dwnld {
+    background: #30D9CF;
+}
+.btn-dwnld::after {
+    content: url('img/Download.svg');
+}
+.btn-upld {
+    background: #9B0F9E;
+}
+.btn-upld::after {
+    content: url('img/Upload.svg');
+}
+.btn::after {
+    -webkit-filter: drop-shadow( 5px 5px 3px rgba(0, 0, 0, .25));
+    filter: drop-shadow( 5px 5px 3px rgba(0, 0, 0, .25));
 }
