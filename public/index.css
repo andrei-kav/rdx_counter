@@ -10,7 +10,7 @@ html, body {
 body {
     background: linear-gradient(180deg, #0837B0, #021E66) no-repeat;
 }
-#root {
+#root, #root>div {
     height: inherit;
 }
 .container {
