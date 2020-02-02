@@ -6,7 +6,6 @@ import CounterService from "../services/counterService";
 import * as actions from "../actions";
 import Spinner from "./spinner";
 
-
 const Counter = ({ counter, inc, dec, rst, downloadValue, uploadValue, isWaiting, toggleIsWaiting }) => {
 
     const spinner = isWaiting ? <Spinner /> : null;

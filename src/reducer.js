@@ -6,7 +6,7 @@ export const UPLOAD_VALUE = 'UPLOAD_VALUE_TO_DB';
 export const TOGGLE_IS_WAITING = 'TOGGLE_IS_WAITING';
 
 
-let initialState = {
+const initialState = {
     number: 0,
     isWaiting: false
 };
