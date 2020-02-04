@@ -1,13 +1,16 @@
+export const DOWNLOAD_ALL_VALUES = 'DOWNLOAD ALL VALUES FROM DB';
 export const INC = 'INCREMENT';
 export const DEC = 'DECREMENT';
-export const RST = 'RESET_VALUE';
-export const DOWNLOAD_VALUE = 'DOWNLOAD_VALUE_FROM_DB';
-export const UPLOAD_VALUE = 'UPLOAD_VALUE_TO_DB';
-export const TOGGLE_IS_WAITING = 'TOGGLE_IS_WAITING';
+export const RST = 'RESET VALUE';
+export const DOWNLOAD_VALUE = 'DOWNLOAD VALUE FROM STATE';
+export const TOGGLE_IS_UPDATING = 'TOGGLE IS UPDATING';
+export const TOGGLE_IS_WAITING = 'TOGGLE IS WAITING';
 
 
-const initialState = {
+let initialState = {
+    allNumbers: [],
     number: 0,
+    isUpdating: true,
     isWaiting: false
 };
 
@@ -17,6 +20,10 @@ const reducer = (state = initialState, action) => {
     let stateCopy = { ...state };
 
     switch (action.type) {
+        case DOWNLOAD_ALL_VALUES:
+            stateCopy.allNumbers = [...state.allNumbers];
+            stateCopy.allNumbers = [...action.values];
+            return stateCopy;
         case INC:
             ++stateCopy.number;
             return stateCopy;
@@ -27,10 +34,12 @@ const reducer = (state = initialState, action) => {
             stateCopy.number = 0;
             return stateCopy;
         case DOWNLOAD_VALUE:
-            stateCopy.number = action.value;
+            stateCopy.number = state.allNumbers.length
+                ? state.allNumbers[action.id]
+                : 0;
             return stateCopy;
-        case UPLOAD_VALUE:
-            return stateCopy;
+        case TOGGLE_IS_UPDATING:
+            return { ...state, isUpdating: action.isUpdating };
         case TOGGLE_IS_WAITING:
             return { ...state, isWaiting: action.isWaiting };
         default:

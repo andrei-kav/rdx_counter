@@ -1,42 +1,28 @@
+import firebase from "../config";
+
 export default class CounterService {
     constructor() {
-        this._apiBase = 'http://localhost:3001/numbers';
-        this._POST = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            }
-        }
+        this._apiBase = firebase.firestore().collection('numbers');
     }
-
-    getResource = async (url, options) => {
-        const res = await fetch(url, options);
-        if (!res.ok) {
-            throw {
-                status: res.status,
-                // status: 345,
-                text: new Error(`Could not fetch ${url}, received ${res.status}`)
-            };
-        }
-        return await res.json();
+    getValues = () => {
+        return this._apiBase.get()
+            .then((res) => {
+                return res.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+            })
+            .then(res => {
+                return res.map(obj => obj.const);
+            })
+            .catch(err => console.error(err));
     };
-
-    _checkValueInData = (data, value) => {
-        return data.some( number => (number.const || number.saved) === value );
-    };
-
-    getValue = async () => {
-        const data = await this.getResource(this._apiBase);
-        const id = Math.floor(Math.random()*data.length + 1);
-        const [ value ] = data.filter(number => number.id === id).map(number => number.const || number.saved);
-        return value;
-    };
-    uploadValueToBD = async (value) => {
-        const data = await this.getResource(this._apiBase);
-        const saved = value.toString();
-        this._checkValueInData(data, saved)
-            ? console.error(`"${saved}" is already in the list`)
-            : await this.getResource(this._apiBase, {...this._POST, body: JSON.stringify({ saved })})
+    uploadValueToDB = (value) => {
+        return this._apiBase.add({
+            const: value
+        })
+            .then(() => console.log('db successfully updated'))
+            .catch(err => console.error(err));
     }
 
 }
